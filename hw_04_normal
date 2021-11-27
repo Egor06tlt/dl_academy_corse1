@@ -1,0 +1,77 @@
+author = "Рекончишек Егор Сергеевич"
+# Задание-1:
+# Напишите функцию, возвращающую ряд Фибоначчи с n-элемента до m-элемента.
+# Первыми элементами ряда считать цифры 1 1
+
+def fibonacci(n, m):
+    f1 = 1
+    f2 = 1
+    i = 2
+    fibonacci_sum1 = 0
+    while i <= m:
+        fibonacci_sum = f2 + f1
+        f1 = f2
+        f2 = fibonacci_sum
+        i += 1
+        if i == n-1:
+            fibonacci_sum1 = fibonacci_sum
+
+    return fibonacci_sum - fibonacci_sum1
+
+print(fibonacci(0, 20))
+
+# Задача-2:
+# Напишите функцию, сортирующую принимаемый список по возрастанию.
+# Для сортировки используйте любой алгоритм (например пузырьковый).
+# Для решения данной задачи нельзя использовать встроенную функцию и метод sort()
+
+def sort_to_max(origin_list):
+
+    if len(origin_list) > 1:
+        pivot_index = len(origin_list) // 2
+        smaller_items = []
+        larger_items = []
+
+        for i, val in enumerate(origin_list):
+            if i != pivot_index:
+                if val < origin_list[pivot_index]:
+                    smaller_items.append(val)
+                else:
+                    larger_items.append(val)
+
+        sort_to_max(smaller_items)
+        sort_to_max(larger_items)
+        origin_list[:] = smaller_items + [origin_list[pivot_index]] + larger_items
+
+    return origin_list
+
+# Задача-3:
+# Напишите собственную реализацию стандартной функции filter.
+# Разумеется, внутри нельзя использовать саму функцию filter.
+
+
+
+# Задача-4:
+# Даны четыре точки А1(х1, у1), А2(x2 ,у2), А3(x3 , у3), А4(х4, у4).
+# Определить, будут ли они вершинами параллелограмма.
+
+print('Введите координаты точек в двумерной плоскости: \n'
+      'А1(х1, у1), А2(х2, у2), А3(x3 ,у3), А4(x4 , у4))')
+x = [int(input('x{} = '.format(x))) for x in range(1,4)]
+y = [int(input('y{} = '.format(y))) for y in range(1,4)]
+
+sides = []
+for i in range(1,4):
+
+    if i == 3:
+        side = [x[0] - x[i], y[0] - y[i]]
+    else:
+        side = [x[i + 1] - x[i], y[i + 1] - y[i]]
+
+    sides.append(sqrt(side[0]**2 + side[1]**2))
+print(sides)
+if sides[0] == sides[2] and sides[1] == sides[3]:
+    print('Точки являются вершинами параллелограмма')
+else:
+    print('Точки не являются вершинами параллелограмма')
+
