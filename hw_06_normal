@@ -107,4 +107,3 @@ if key:
         do[key]()
     else:
         print('Неправильный ключ')
-       
