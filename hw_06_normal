@@ -51,7 +51,6 @@ def print_help():
     print('2. Посмотреть содержимое текущей папки')
     print("3. Удалить папку" )
     print("4. Создать папку")
-    print("Чтобы выйти нажмите Escape")
 
 def make_dir():
     directory = input('Enter directory name: ')
