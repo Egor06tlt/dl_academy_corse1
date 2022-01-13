@@ -1,0 +1,42 @@
+# author = 'Рекончишек Егор Сергеевич'
+#
+# # Задача-1: Написать класс для фигуры-треугольника, заданного координатами трех точек.
+# # Определить методы, позволяющие вычислить: площадь, высоту и периметр фигуры.
+#
+import math
+
+class Treugolnik:
+
+    def __init__(self, A, B, C):
+
+        def sideLen(koor1, koor2):
+            return math.sqrt((koor1[0] - koor2[0]) ** 2
+                             + (koor1[1] - koor2[1]) ** 2)
+
+        self.A = A
+        self.B = B
+        self.C = C
+        self.AB = sideLen(self.A, self.B)
+        self.BC = sideLen(self.B, self.C)
+        self.CA = sideLen(self.C, self.A)
+
+    def areaTreugolnik(self):
+        semi_perimeter = self.perimeterTreugolnik() / 2
+
+        return math.sqrt(semi_perimeter
+                         * (semi_perimeter - self.AB)
+                         * (semi_perimeter - self.BC)
+                         * (semi_perimeter - self.CA))
+
+    def perimeterTreugolnik(self):
+        return self.AB + self.BC + self.CA
+
+    def heightTreugolnik(self):
+        return self.areaTreugolnik() / (self.AB / 2)
+
+
+Treugolnik1 = Treugolnik((0, 0), (4, 0), (0, 3))
+
+print(Treugolnik1.areaTreugolnik())
+print(Treugolnik1.heightTreugolnik())
+print(Treugolnik1.perimeterTreugolnik())
