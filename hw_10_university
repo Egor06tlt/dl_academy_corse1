@@ -1,0 +1,75 @@
+from datetime import date
+
+class University:
+    
+    students_list = []
+
+    def __init__(self, best_ball):
+        self.best_ball = best_ball
+
+    def student_score_is_enough(self, new_student):
+        if new_student.best_ball < self.best_ball:
+            return False
+        else:
+            return True
+
+    def add_student(self, new_student):
+        if not self.student_score_is_enough(new_student):
+            print(f'Студенту', new_student, 'не хватило баллов для поступления в наш университет')
+        else:
+            self.students_list.append(new_student)
+            print(f'Студент {new_student} зачислен в наш университет')
+
+    def show_students(self):
+        print('Студенты нашего универа:')
+        for student in self.students_list:
+            print(student)
+
+
+class People:
+    def __init__(self, name: str, surname: str, patronomyc: str, birth_date: date, phone: str):
+        self.surname = surname
+        self.name = name
+        self.patronomyc = patronomyc
+        self.birth_date = birth_date
+        self.phone = phone
+
+
+class Student(People):
+    def __init__(self, surname: str, name: str, patronomyc: str,
+                 birth_date: date, phone: str, id: int, group_number: int,
+                 specialty_code: int, starosta: str, best_ball: int):
+
+        super().__init__(surname, name, patronomyc, birth_date, phone)
+        self.id = id
+        self.group_number = group_number
+        self.specialty_code = specialty_code
+        self.best_ball = best_ball
+        self.starosta = starosta
+
+    def __str__(self):
+        return ' '.join((self.name, self.surname))
+
+if __name__ == '__main__':
+    university = University(350)
+    student1 = Student('Смирнов', 'Алексей', 'Евгеньевич', date(2004, 1, 6),
+                       '89272349674', 135, 1, 11, 'Не староста', 330)
+    student2 = Student('Николаев', 'Матвей', 'Сергеевич', date(2003, 11, 13),
+                       '89023456743', 907, 2, 12, 'Староста', 400)
+    student3 = Student('Журавлёв', 'Александр', 'Александрович', date(2004, 7, 13),
+                       '89875489054', 201, 3, 13, 'Не староста', 270)
+    student4 = Student('Соколов', 'Антон', 'Валерьевич', date(2003, 12, 31),
+                       '8800553535', 865, 4, 14, 'Не староста', 367)
+    student5 = Student('Попов', 'Матвей', 'Николаевич', date(2004, 2, 20),
+                       '89637897651', 139, 5, 15, 'Не староста', 386)
+    student6 = Student('Новиков', 'Дмитрий', 'Анатольевич', date(2003, 10, 1),
+                       '89372004569', 143, 6, 16, 'Не староста', 256)
+
+    university.add_student(student1)
+    university.add_student(student2)
+    university.add_student(student3)
+    university.add_student(student4)
+    university.add_student(student5)
+    university.add_student(student6)
+
+    university.show_students()
