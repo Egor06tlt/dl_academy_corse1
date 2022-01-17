@@ -1,0 +1,91 @@
+class CarDealership:
+
+    def __init__(self, salon_name):
+
+        self.car_dict = {}
+        self.name = salon_name
+
+    def add_car(self, new_car, amount):
+
+        amount_available, amount_sold = self.car_dict.get(new_car, [0, 0])
+        print("\nВ салоне машин модели {} было в наличии: {}, было уже продано: {}".format(new_car,
+                                                                                           amount_available,
+                                                                                           amount_sold))
+        print(f"Добавлено: {amount}\n")
+        self.car_dict.update({new_car: [amount_available + amount, amount_sold]})
+
+    def sell_car(self, car, amount):
+
+        amount_available, amount_sold = self.car_dict.get(car, [0, 0])
+        if amount_available >= amount:
+
+            self.car_dict.update({car: [amount_available - amount, amount_sold + amount]})
+            print(f"\nУспешная продажа машины {car}")
+            print(f"Продано {amount_sold + amount}")
+            print(f"Осталось в наличии {amount_available - amount}\n")
+            return True
+        else:
+
+            print(f"\nМашин модели {car} в салоне недостаточно для продажи")
+            print(f"Было запрошено {amount}")
+            print(f"Сейчас в наличии {amount_available}\n")
+            return False
+
+    def show_cars(self):
+
+        print(f'\nМашины в нашем салоне \"{self.name}\": ')
+        if not self.car_dict:
+            print("Пока что отсутствует, ждём\n")
+        else:
+            for car, amounts in self.car_dict.items():
+                print(f"{car}: в наличии {amounts[0]}, продано {amounts[1]}")
+            print("\n")
+
+class Car:
+    def __init__(self, unique_id: int, car_model: str, manufacturer_country: str, year_of_issue: int,
+                 engine_capacity: int, price: int):
+        self.unique_id = unique_id
+        self.car_model = car_model
+        self.manufacturer_country = manufacturer_country
+        self.year_of_issue = year_of_issue
+        self.engine_capacity = engine_capacity
+        self.price = price
+
+class Lorry(Car):
+    def __init__(self, unique_id: int, car_model: str, manufacturer_country: str, year_of_issue: int,
+                 engine_capacity: int, price: int, weight_restriction_of_carriage: int):
+        super().__init__(unique_id, car_model, manufacturer_country, year_of_issue,
+                         engine_capacity, price)
+        self.weight_restriction_of_carriage = weight_restriction_of_carriage
+
+    def __str__(self):
+        return self.car_model
+
+if __name__ == '__main__':
+    car_showroom = CarDealership("Выбор")
+    car1 = Car(163, 'Лада Веста', 'Россия', 2021, 1.8, 890000)
+    car2 = Car(967, 'Хёндай Солярис', 'Южная Корея', 2021, 1.6, 970000)
+    car3 = Lorry(969, 'Камаз - 54901', 'Россия', 2021, 12, 9000000, 12000)
+    car4 = Car(919, 'Ситроен С4', 'Франция', 2021, 2, 1500000)
+    car5 = Lorry(990, 'Тонар - 7502', 'Россия', 2021, 18.9, 3000000, 125000)
+    car6 = Lorry(948, 'Белаз - 75320', 'Беларусь', 2021, 850, 57000000, 90000)
+
+    car_showroom.show_cars()
+
+    car_showroom.add_car(car1, 20)
+    car_showroom.add_car(car2, 15)
+    car_showroom.add_car(car3, 5)
+    car_showroom.add_car(car4, 10)
+    car_showroom.add_car(car5, 5)
+    car_showroom.add_car(car6, 5)
+
+    car_showroom.show_cars()
+
+    car_showroom.sell_car(car1, 10)
+    car_showroom.sell_car(car2, 7)
+    car_showroom.sell_car(car3, 1)
+    car_showroom.sell_car(car4, 8)
+    car_showroom.sell_car(car5, 2)
+    car_showroom.sell_car(car6, 3)
+
+    car_showroom.show_cars()
